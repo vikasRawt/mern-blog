@@ -2,11 +2,14 @@ import express from "express";
 import mongoose from "mongoose";
 import { configDotenv } from "dotenv";
 import userRoutes from "./routes/userRoutes.js";
-import  authRoutes from './routes/authRoute.js'
+import  authRoutes from './routes/authRoute.js';
+import cors from "cors";
+const app = express();
+
+app.use(cors());
 
 configDotenv();
 
-const app = express();
 
 app.use(express.json());
 
@@ -26,7 +29,7 @@ app.listen(PORT, (req, res) => {
 });
 
 app.use("/api/user",userRoutes);
-app.use("/api/user",authRoutes);
+app.use("/api/auth",authRoutes);
 
 app.use((err,req,res,next)=>{
   const statusCode = err.statusCode || 500;
