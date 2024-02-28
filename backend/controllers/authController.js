@@ -16,18 +16,19 @@ export const signUp = async (req, res, next) => {
     next(errorHandler(400, "All fields required and correctly filled"));
   }
 
-  const hashedPass = bcryptjs.hashSync(password, 10);
-
-  const newUser = new User({
-    username,
-    email,
-    password: hashedPass,
-  });
-
   try {
+    const hashedPass = bcryptjs.hashSync(password, 10);
+    console.log("Hashed Password:", hashedPass); // Add this line to see the hashed password
+
+    const newUser = new User({
+      username,
+      password:hashedPass,
+      email,
+    });
     await newUser.save();
-    res.json("signUp successfull");
+    res.json("signUp successful");
   } catch (error) {
+    console.error("Error during signup:", error); // Add this line to see the error in the console
     next(error);
   }
 };
