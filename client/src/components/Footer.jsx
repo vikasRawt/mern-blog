@@ -1,13 +1,14 @@
 import { Footer } from "flowbite-react";
 import React from "react";
 import { Link } from "react-router-dom";
+import { BsFacebook, BsGithub, BsInstagram, BsLinkedin, BsTwitter } from "react-icons/bs";
 
 function FooterCmp() {
   return (
     <Footer container className="border border-t-8 border-blue-300">
       <div className="w-full max-w-7xl mx-auto">
         <div className="grid w-full justify-between sm:flex md:grid-cols-1">
-          <div>
+          <div className="mt-5">
             <Link
               to="/"
               className="self-center whitespace-nowrap text-lg sm:text-xl font-semibold dark:text-white"
@@ -17,7 +18,8 @@ function FooterCmp() {
               </span>
               Blogs
             </Link>
-            <div className="grid grid-cols-2 gap-3 sm: mt-4 sm:grid-cols-3 sm:gap-6">
+            </div>
+            <div className="grid grid-cols-2 gap-8 sm: mt-4 sm:grid-cols-3 sm:gap-6">
               <div>
                 <Footer.Title title="About" />
                 <Footer.LinkGroup col>
@@ -58,8 +60,22 @@ function FooterCmp() {
               </div>
             </div>
           </div>
+        <Footer.Divider />
+        <div className="w-full sm:flex sm:items-center sm:justify-between">
+          <Footer.Copyright
+            href=""
+            by="vikas's Blog"
+            year={new Date().getFullYear()}
+          />
+          <div className="flex gap-6 sm:mt-4 sm:justify-center">
+            <Footer.Icon href="#" icon={BsFacebook} />
+            <Footer.Icon href="#" icon={BsTwitter} />
+            <Footer.Icon href="#" icon={BsGithub} />
+            <Footer.Icon href="#" icon={BsInstagram} />
+            <Footer.Icon href="#" icon={BsLinkedin} />
+          </div>
         </div>
-      </div>
+        </div>
     </Footer>
   );
 }
