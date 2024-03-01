@@ -1,12 +1,20 @@
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import { useState } from "react";
-import { Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from "../reduxApp/User/userSlice";
 
 export default function SignIp() {
+  const dispatch = useDispatch();
   const [formData, setFormdata] = useState({});
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [loading, setLoading] = useState(false);
+  // const [errorMessage, setErrorMessage] = useState(null);
+  // const [loading, setLoading] = useState(false);
+  const{loading, error:errorMessage} = useSelector(state => state.user);
   const navigate = useNavigate();
   const handleChange = (e) => {
     // what formdata is doing is it stores the value and then keeps eye on the changes and then storing others by spreading the elements and all.
@@ -15,27 +23,29 @@ export default function SignIp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.email || !formData.password) {
-      return setErrorMessage("please fill all the fields");
+      return dispatch(signInFailure("please fill all the fields"));
     }
     try {
-      setLoading(true);
-      setErrorMessage(null);
+      // setLoading(true); // setErrorMessage(null);  //before using redux
+      dispatch(signInStart());
       const res = await axios.post("/api/auth/signin", formData, {
         headers: { "Content-Type": "application/json" },
       });
       console.log(res);
       if (res.success === false) {
-        setErrorMessage(data.message);
+        // setErrorMessage(res.message);
+        dispatch(signInFailure(res.message));
       }
-      setLoading(false);
-      if(res.statusText === "OK"){
-        navigate('/');
+      if (res.statusText === "OK") {
+        dispatch(signInSuccess(res));
+        navigate("/");
       }
     } catch (error) {
       console.error("Error", error);
       console.log("Response data:", error.response.data); // Log the server response
-      setErrorMessage(data.message);
-      setLoading(false);
+      // setErrorMessage(data.message);
+      // setLoading(false);
+      dispatch(signInFailure(error.message));
     }
   };
 
