@@ -2,6 +2,7 @@ import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { Link, useNavigate} from "react-router-dom";
 import axios from "axios";
+import G_auth from "../components/G_auth";
 
 export default function SignUp() {
   const [formData, setFormdata] = useState({});
@@ -99,6 +100,7 @@ export default function SignUp() {
                 "sign Up"
               )}
             </Button>
+            <G_auth/>
           </form>
           <div className="flex gap-2 text-sm mt-5">
             <span>Have an account</span>

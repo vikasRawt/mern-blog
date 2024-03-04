@@ -8,6 +8,7 @@ import {
   signInSuccess,
   signInFailure,
 } from "../reduxApp/User/userSlice";
+import G_auth from "../components/G_auth";
 
 export default function SignIp() {
   const dispatch = useDispatch();
@@ -100,6 +101,7 @@ export default function SignIp() {
                 "sign In"
               )}
             </Button>
+            <G_auth/>
           </form>
           <div className="flex gap-2 text-sm mt-5">
             <span>Don't have an account?</span>
